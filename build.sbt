@@ -22,6 +22,7 @@ lazy val `account-impl` = (project in file("account-impl"))
   .settings(
     libraryDependencies ++= Seq(
       lagomLogback,
+      lagomJavadslServer,
       lagomJavadslTestKit,
     )
   )

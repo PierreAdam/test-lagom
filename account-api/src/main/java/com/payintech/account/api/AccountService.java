@@ -15,11 +15,14 @@ public interface AccountService extends Service {
 
     ServiceCall<NotUsed, String> getAccount();
 
+    ServiceCall<NotUsed, String> getAccountWithHeaders();
+
     @Override
     default Descriptor descriptor() {
         return Service.named("account")
                 .withCalls(
-                        Service.pathCall("/account", this::getAccount)
+                        Service.pathCall("/account", this::getAccount),
+                        Service.pathCall("/account-with-headers", this::getAccountWithHeaders)
                 )
                 .withAutoAcl(true);
     }
