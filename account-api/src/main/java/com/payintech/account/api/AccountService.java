@@ -13,16 +13,16 @@ import com.lightbend.lagom.javadsl.api.ServiceCall;
  */
 public interface AccountService extends Service {
 
-    ServiceCall<NotUsed, String> getAccount();
+    ServiceCall<NotUsed, Account> getAccount(String id);
 
-    ServiceCall<NotUsed, String> getAccountWithHeaders();
+    ServiceCall<Account, NotUsed> createAccount();
 
     @Override
     default Descriptor descriptor() {
         return Service.named("account")
                 .withCalls(
-                        Service.pathCall("/account", this::getAccount),
-                        Service.pathCall("/account-with-headers", this::getAccountWithHeaders)
+                        Service.pathCall("/account/:id", this::getAccount),
+                        Service.namedCall("/account", this::createAccount)
                 )
                 .withAutoAcl(true);
     }
