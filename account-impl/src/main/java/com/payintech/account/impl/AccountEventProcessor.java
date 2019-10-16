@@ -5,13 +5,14 @@ import com.lightbend.lagom.javadsl.persistence.Offset;
 import com.lightbend.lagom.javadsl.persistence.ReadSideProcessor;
 import com.lightbend.lagom.javadsl.persistence.jdbc.JdbcReadSide;
 import com.lightbend.lagom.javadsl.persistence.jdbc.JdbcSession;
+import com.payintech.account.impl.models.AccountModel;
 import org.pcollections.PSequence;
 import org.pcollections.TreePVector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 /**
  * AccountEventProcessor.
@@ -20,6 +21,8 @@ import java.sql.SQLException;
  * @since 19.10.10
  */
 public class AccountEventProcessor extends ReadSideProcessor<AccountEvent> {
+
+    final Logger logger = LoggerFactory.getLogger(AccountEventProcessor.class);
 
     final JdbcSession session;
 
@@ -40,22 +43,15 @@ public class AccountEventProcessor extends ReadSideProcessor<AccountEvent> {
     }
 
     private void processAccountCreated(final Connection connection, final AccountEvent.AccountCreated accountCreated, final Offset offset) {
-        try {
-            final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO account (id, name) VALUES (?, ?)");
-            preparedStatement.setString(1, accountCreated.id);
-            preparedStatement.setString(2, accountCreated.name);
-            preparedStatement.execute();
-        } catch (final SQLException e) {
-            e.printStackTrace();
-        }
+        this.logger.error("Create account");
+        final AccountModel accountModel = new AccountModel();
+        accountModel.setId(accountCreated.id);
+        accountModel.setName(accountCreated.name);
+        accountModel.save();
     }
 
     private void prepareCreateTables(final Connection connection) {
-        try {
-            connection.createStatement().execute("CREATE TABLE account (id VARCHAR(255), name VARCHAR(255));");
-        } catch (final SQLException e) {
-            e.printStackTrace();
-        }
+        this.logger.error("CREATE TABLES");
     }
 
     @Override
