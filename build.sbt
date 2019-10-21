@@ -26,12 +26,12 @@ lazy val `account-impl` = (project in file("account-impl"))
   .enablePlugins(LagomJava, PlayEbean)
   .settings(
     libraryDependencies ++= Seq(
-      guice,
+      //      guice,
       lagomLogback,
       lagomJavadslServer,
       lagomJavadslTestKit,
       lagomJavadslPersistenceJdbc,
-      lagomJavadslAkkaDiscovery,
+      //      lagomJavadslAkkaDiscovery,
       "org.postgresql" % "postgresql" % "42.2.5",
     ),
     libraryDependencies ++= java9AndSupLibraryDependencies
@@ -56,3 +56,5 @@ lazy val java9AndSupLibraryDependencies: Seq[sbt.ModuleID] =
 // Disable the play enhancer
 playEnhancerEnabled := false
 
+lagomKafkaEnabled in ThisBuild := false
+lagomKafkaAddress in ThisBuild := "192.168.1.107:9092"
