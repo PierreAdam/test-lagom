@@ -18,8 +18,16 @@ import java.util.Optional;
 @JsonDeserialize
 public final class AccountState implements Jsonable {
 
+    /**
+     * The Account.
+     */
     public final Optional<Account> account;
 
+    /**
+     * Instantiates a new Account state.
+     *
+     * @param account the account
+     */
     @JsonCreator
     public AccountState(final Optional<Account> account) {
         this.account = account;

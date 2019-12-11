@@ -18,7 +18,8 @@ lazy val `lagom-test` = (project in file("."))
 lazy val `account-api` = (project in file("account-api"))
   .settings(
     libraryDependencies ++= Seq(
-      lagomJavadslApi
+      lagomJavadslApi,
+      lagomLogback
     )
   )
 
@@ -37,6 +38,31 @@ lazy val `account-impl` = (project in file("account-impl"))
     libraryDependencies ++= java9AndSupLibraryDependencies
   )
   .dependsOn(`account-api`)
+
+//lazy val `phone-api` = (project in file("phone-api"))
+//  .settings(
+//    libraryDependencies ++= Seq(
+//      lagomJavadslApi
+//    )
+//  )
+//  .dependsOn(`account-api`)
+//
+//lazy val `phone-impl` = (project in file("phone-impl"))
+//  .enablePlugins(LagomJava, PlayEbean)
+//  .settings(
+//    libraryDependencies ++= Seq(
+//      //      guice,
+//      lagomLogback,
+//      lagomJavadslServer,
+//      lagomJavadslTestKit,
+//      lagomJavadslPersistenceJdbc,
+//      //      lagomJavadslAkkaDiscovery,
+//      "org.postgresql" % "postgresql" % "42.2.5",
+//    ),
+//    libraryDependencies ++= java9AndSupLibraryDependencies
+//  )
+//  .dependsOn(`account-api`)
+//  .dependsOn(`phone-api`)
 
 // Library dependencies for java 9 and later
 lazy val java9AndSupLibraryDependencies: Seq[sbt.ModuleID] =
@@ -57,4 +83,4 @@ lazy val java9AndSupLibraryDependencies: Seq[sbt.ModuleID] =
 playEnhancerEnabled := false
 
 lagomKafkaEnabled in ThisBuild := false
-lagomKafkaAddress in ThisBuild := "192.168.1.107:9092"
+//lagomKafkaAddress in ThisBuild := "192.168.1.107:9092"

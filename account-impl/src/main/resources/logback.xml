@@ -1,0 +1,39 @@
+<configuration debug="false" scan="false">
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+    <conversionRule conversionWord="coloredLevel" converterClass="com.lightbend.lagom.internal.logback.ColoredLevel"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%coloredLevel %logger{15} - %message%n%xException{10}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNCSTDOUT" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="STDOUT"/>
+    </appender>
+
+    <logger name="lagom" level="INFO"/>
+    <logger name="play" level="INFO"/>
+    <logger name="application" level="DEBUG"/>
+    <logger name="io.ebean.SQL" level="WARN"/>
+    <logger name="com.zaxxer.hikari" level="INFO"/>
+
+    <!-- Off these ones as they are annoying, and anyway we manage configuration ourselves -->
+    <logger name="akka.io.TcpListener" level="OFF"/>
+    <logger name="com.gargoylesoftware.htmlunit.javascript" level="OFF"/>
+    <logger name="com.rabbitmq.client.TrustEverythingTrustManager" level="ERROR"/>
+    <logger name="com.zaxxer.hikari.pool.PoolBase" level="ERROR"/>
+    <logger name="io.ebean.config.PropertyMapLoader" level="OFF"/>
+    <logger name="io.ebean.internal.DefaultContainer" level="WARN"/>
+    <logger name="io.ebeaninternal.server.deploy.parse.DeployCreateProperties" level="WARN"/>
+    <logger name="org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator" level="OFF"/>
+    <logger name="org.hibernate.validator.internal.util.Version" level="OFF"/>
+    <logger name="org.pac4j.core.matching.PathMatcher" level="ERROR"/>
+    <logger name="org.reflections.Reflections" level="WARN"/>
+    <logger name="com.payintech" level="TRACE"/>
+
+    <root level="INFO">
+        <appender-ref ref="ASYNCSTDOUT"/>
+    </root>
+</configuration>

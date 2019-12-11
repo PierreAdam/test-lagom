@@ -4,8 +4,11 @@
 # --- !Ups
 
 create table account (
-  id                            varchar(255) not null,
-  name                          varchar(255) not null
+  id                            bigserial not null,
+  uid                           uuid not null,
+  name                          varchar(40) not null,
+  constraint uq_account_uid unique (uid),
+  constraint pk_account primary key (id)
 );
 
 

@@ -18,10 +18,22 @@ import javax.inject.Inject;
  */
 public class AccountModule extends AbstractModule implements ServiceGuiceSupport {
 
+    /**
+     * The Environment.
+     */
     private final Environment environment;
 
+    /**
+     * The Config.
+     */
     private final Config config;
 
+    /**
+     * Instantiates a new Account module.
+     *
+     * @param environment the environment
+     * @param config      the config
+     */
     @Inject
     public AccountModule(final Environment environment, final Config config) {
         this.environment = environment;
