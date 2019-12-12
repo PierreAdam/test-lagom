@@ -18,5 +18,5 @@ The environment variable `DISABLE_EMBEDDED_KAFKA` allows you to do so.
 No specific value need to be set but you can do `DISABLE_EMBEDDED_KAFKA=TRUE`.
 
 Then you must specify an endpoint for the broker. You may also do so by using an environment variable.
-Here is an example `AGOM_BROKER_KAFKA_BROKERS=192.168.1.5:9092`.
+Here is an example `LAGOM_BROKER_KAFKA_BROKERS=192.168.1.5:9092`.
 
