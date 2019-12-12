@@ -82,5 +82,4 @@ lazy val java9AndSupLibraryDependencies: Seq[sbt.ModuleID] =
 // Disable the play enhancer
 playEnhancerEnabled := false
 
-lagomKafkaEnabled in ThisBuild := false
-//lagomKafkaAddress in ThisBuild := "192.168.1.107:9092"
+lagomKafkaEnabled in ThisBuild := !sys.env.keySet.contains("DISABLE_EMBEDDED_KAFKA")
