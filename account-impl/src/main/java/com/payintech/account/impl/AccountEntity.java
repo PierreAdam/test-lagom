@@ -41,7 +41,7 @@ public class AccountEntity extends PersistentEntity<AccountCommand, AccountEvent
      * @param commandContext the command context
      * @return persist persist
      */
-    private Persist createAccountCommand(final AccountCommand.CreateAccount createAccount, final CommandContext commandContext) {
+    private Persist<AccountEvent> createAccountCommand(final AccountCommand.CreateAccount createAccount, final CommandContext<Account> commandContext) {
         if (this.state().account.isPresent()) {
             commandContext.invalidCommand("Account " + this.entityId() + " already exists");
             return commandContext.done();
@@ -64,7 +64,7 @@ public class AccountEntity extends PersistentEntity<AccountCommand, AccountEvent
      * @param commandContext the command context
      * @return the persist
      */
-    private Persist updateAccountCommand(final AccountCommand.UpdateAccount updateAccount, final CommandContext commandContext) {
+    private Persist<AccountEvent> updateAccountCommand(final AccountCommand.UpdateAccount updateAccount, final CommandContext<Account> commandContext) {
         if (!this.state().account.isPresent()) {
             commandContext.invalidCommand("Account does not exist !");
             return commandContext.done();
@@ -87,7 +87,7 @@ public class AccountEntity extends PersistentEntity<AccountCommand, AccountEvent
      * @param commandContext the command context
      * @return the persist
      */
-    private Persist deleteAccountCommand(final AccountCommand.DeleteAccount deleteAccount, final CommandContext commandContext) {
+    private Persist<AccountEvent> deleteAccountCommand(final AccountCommand.DeleteAccount deleteAccount, final CommandContext<Done> commandContext) {
         if (!this.state().account.isPresent()) {
             commandContext.invalidCommand("Account does not exist !");
             return commandContext.done();

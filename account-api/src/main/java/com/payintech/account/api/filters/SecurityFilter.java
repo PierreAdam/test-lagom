@@ -18,25 +18,25 @@ public class SecurityFilter implements HeaderFilter {
 
     @Override
     public RequestHeader transformServerRequest(final RequestHeader request) {
-        this.logger.error("Transform Server Request");
+//        this.logger.error("Transform Server Request");
         return request;
     }
 
     @Override
     public ResponseHeader transformServerResponse(final ResponseHeader response, final RequestHeader request) {
-        this.logger.error("Transform Server Response");
+//        this.logger.error("Transform Server Response");
         return response;
     }
 
     @Override
     public RequestHeader transformClientRequest(final RequestHeader request) {
-        this.logger.error("Transform Client Request");
+//        this.logger.error("Transform Client Request");
         return request;
     }
 
     @Override
     public ResponseHeader transformClientResponse(final ResponseHeader response, final RequestHeader request) {
-        this.logger.error("Transform Client Response");
+//        this.logger.error("Transform Client Response");
         return response;
     }
 }

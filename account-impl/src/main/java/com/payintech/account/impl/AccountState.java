@@ -2,6 +2,7 @@ package com.payintech.account.impl;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.common.base.Preconditions;
 import com.lightbend.lagom.serialization.Jsonable;
 import com.payintech.account.api.Account;
 
@@ -30,6 +31,6 @@ public final class AccountState implements Jsonable {
      */
     @JsonCreator
     public AccountState(final Optional<Account> account) {
-        this.account = account;
+        this.account = Preconditions.checkNotNull(account);
     }
 }
