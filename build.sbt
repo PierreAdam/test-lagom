@@ -13,7 +13,15 @@ javaVersion := System.getProperty("java.version")
 
 // Project
 lazy val `lagom-test` = (project in file("."))
-  .aggregate(`account-api`, `account-impl`)
+  .aggregate(`security`, `account-api`, `account-impl`, `phone-api`, `phone-impl`)
+
+lazy val `security` = (project in file("security"))
+  .settings(
+    libraryDependencies ++= Seq(
+      lagomJavadslApi,
+      lagomLogback
+    )
+  )
 
 lazy val `account-api` = (project in file("account-api"))
   .settings(
@@ -22,6 +30,7 @@ lazy val `account-api` = (project in file("account-api"))
       lagomLogback
     )
   )
+  .dependsOn(`security`)
 
 lazy val `account-impl` = (project in file("account-impl"))
   .enablePlugins(LagomJava, PlayEbean)
@@ -45,7 +54,7 @@ lazy val `phone-api` = (project in file("phone-api"))
       lagomJavadslApi
     )
   )
-  .dependsOn(`account-api`)
+  .dependsOn(`security`)
 
 lazy val `phone-impl` = (project in file("phone-impl"))
   .enablePlugins(LagomJava, PlayEbean)

@@ -5,7 +5,7 @@ import com.lightbend.lagom.javadsl.api.Descriptor;
 import com.lightbend.lagom.javadsl.api.Service;
 import com.lightbend.lagom.javadsl.api.ServiceCall;
 import com.lightbend.lagom.javadsl.api.transport.Method;
-import com.payintech.account.api.filters.SecurityFilter;
+import com.payintech.filters.SecurityFilter;
 
 import java.util.List;
 import java.util.Optional;
