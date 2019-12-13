@@ -31,6 +31,12 @@ public class PhoneModel extends Model {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
+    /**
+     * The Uid.
+     */
+    @Column(name = "uid", nullable = false, unique = true)
+    private UUID uid;
+
     @Column(name = "account_uid", nullable = false, unique = false)
     private UUID accountUid;
 
@@ -47,6 +53,14 @@ public class PhoneModel extends Model {
 
     public void setAccountUid(final UUID accountUid) {
         this.accountUid = accountUid;
+    }
+
+    public UUID getUid() {
+        return uid;
+    }
+
+    public void setUid(UUID uid) {
+        this.uid = uid;
     }
 
     public String getPhoneNumber() {

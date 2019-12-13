@@ -50,7 +50,7 @@ public class PhoneServiceImpl implements PhoneService {
         this.persistentEntities = persistentEntities;
         this.persistentEntities.register(PhoneEntity.class);
         this.accountService = accountService;
-        //readSide.register(AccountEventProcessor.class);
+        readSide.register(PhoneEventProcessor.class);
     }
 
     @Override
