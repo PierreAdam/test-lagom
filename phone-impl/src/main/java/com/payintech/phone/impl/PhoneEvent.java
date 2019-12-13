@@ -37,4 +37,29 @@ public interface PhoneEvent extends Jsonable, AggregateEvent<PhoneEvent> {
             this.phoneNumber = phoneNumber;
         }
     }
+
+    public class PhoneUpdated extends PhoneCreated {
+        public PhoneUpdated(final UUID uid, final UUID accountUid, final String phoneNumber) {
+            super(uid, accountUid, phoneNumber);
+        }
+    }
+
+    @Immutable
+    @JsonDeserialize
+    public class PhoneDeleted implements PhoneEvent {
+        /**
+         * The Uid.
+         */
+        public final UUID uid;
+
+        /**
+         * Instantiates a new phone deleted.
+         *
+         * @param uid the uid
+         */
+        @JsonCreator
+        public PhoneDeleted(final UUID uid) {
+            this.uid = uid;
+        }
+    }
 }

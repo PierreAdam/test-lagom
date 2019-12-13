@@ -2,11 +2,8 @@ package com.payintech.phone.impl;
 
 import akka.NotUsed;
 import com.lightbend.lagom.javadsl.api.ServiceCall;
-import com.lightbend.lagom.javadsl.api.deser.ExceptionMessage;
 import com.lightbend.lagom.javadsl.api.transport.BadRequest;
 import com.lightbend.lagom.javadsl.api.transport.NotFound;
-import com.lightbend.lagom.javadsl.api.transport.TransportErrorCode;
-import com.lightbend.lagom.javadsl.api.transport.TransportException;
 import com.lightbend.lagom.javadsl.persistence.PersistentEntityRef;
 import com.lightbend.lagom.javadsl.persistence.PersistentEntityRegistry;
 import com.lightbend.lagom.javadsl.persistence.ReadSide;
@@ -60,10 +57,10 @@ public class PhoneServiceImpl implements PhoneService {
     public ServiceCall<Phone, Phone> createPhone() {
         return phone -> {
             phone.uid = UUID.randomUUID();
-            return this.accountService.readAccount(phone.uid)
+            return this.accountService.readAccount(phone.accountUid)
                     .invoke()
                     .exceptionally(throwable -> {
-                        this.logger.debug("Error !!", throwable);
+                        this.logger.debug("Error  !!", throwable);
                         throw new BadRequest("The account does not exists !");
                     })
                     .thenCompose(account -> this.phoneEntityRef(phone.uid)
@@ -87,15 +84,24 @@ public class PhoneServiceImpl implements PhoneService {
     @Override
     public ServiceCall<Phone, Phone> updatePhone(final UUID uid) {
         return phone -> {
-            throw new TransportException(TransportErrorCode.NotFound, new ExceptionMessage("NotImplemented", "Come back later mate !"));
+            phone.uid = uid;
+            return this.accountService
+                    .readAccount(phone.accountUid)
+                    .invoke()
+                    .exceptionally(throwable -> {
+                        this.logger.debug("Error !!", throwable);
+                        throw new BadRequest("The account does not exists !");
+                    })
+                    .thenCompose(account -> this.phoneEntityRef(uid)
+                            .ask(new PhoneCommand.UpdatePhone(phone)));
         };
     }
 
     @Override
     public ServiceCall<NotUsed, NotUsed> deletePhone(final UUID uid) {
-        return phone -> {
-            throw new TransportException(TransportErrorCode.NotFound, new ExceptionMessage("NotImplemented", "Come back later mate !"));
-        };
+        return phone -> this.phoneEntityRef(uid)
+                .ask(new PhoneCommand.DeletePhone())
+                .thenApply(done -> NotUsed.getInstance());
     }
 
     /**

@@ -37,7 +37,7 @@ public interface AccountCommand extends Jsonable {
          */
         @JsonCreator
         public CreateAccount(final Account account) {
-            this.account = account;
+            this.account = Preconditions.checkNotNull(account);
         }
     }
 
