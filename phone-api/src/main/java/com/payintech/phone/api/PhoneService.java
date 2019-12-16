@@ -5,6 +5,7 @@ import com.lightbend.lagom.javadsl.api.Descriptor;
 import com.lightbend.lagom.javadsl.api.Service;
 import com.lightbend.lagom.javadsl.api.ServiceCall;
 import com.lightbend.lagom.javadsl.api.transport.Method;
+import com.payintech.filters.SecurityFilter;
 
 import java.util.UUID;
 
@@ -33,6 +34,7 @@ public interface PhoneService extends Service {
                         Service.restCall(Method.PUT, "/phone/:uid", this::updatePhone),
                         Service.restCall(Method.DELETE, "/phone/:uid", this::deletePhone)
                 )
+                .withHeaderFilter(new SecurityFilter("Phone"))
                 .withAutoAcl(true);
     }
 }

@@ -39,7 +39,7 @@ public interface AccountService extends Service {
                         Service.restCall(Method.PUT, "/account/:uid", this::updateAccount),
                         Service.restCall(Method.DELETE, "/account/:uid", this::deleteAccount)
                 )
-                .withHeaderFilter(new SecurityFilter())
+                .withHeaderFilter(new SecurityFilter("Account"))
                 .withAutoAcl(true);
     }
 }

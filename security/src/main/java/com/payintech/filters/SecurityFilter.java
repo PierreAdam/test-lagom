@@ -16,27 +16,33 @@ public class SecurityFilter implements HeaderFilter {
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    private final String serviceName;
+
+    public SecurityFilter(final String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    @Override
+    public RequestHeader transformClientRequest(final RequestHeader request) {
+        this.logger.trace("[{}] Transform Client Request", this.serviceName);
+        return request;
+    }
+
     @Override
     public RequestHeader transformServerRequest(final RequestHeader request) {
-        this.logger.error("Transform Server Request");
+        this.logger.trace("[{}] Transform Server Request", this.serviceName);
         return request;
     }
 
     @Override
     public ResponseHeader transformServerResponse(final ResponseHeader response, final RequestHeader request) {
-        this.logger.error("Transform Server Response");
+        this.logger.trace("[{}] Transform Server Response", this.serviceName);
         return response;
     }
 
     @Override
-    public RequestHeader transformClientRequest(final RequestHeader request) {
-        this.logger.error("Transform Client Request");
-        return request;
-    }
-
-    @Override
     public ResponseHeader transformClientResponse(final ResponseHeader response, final RequestHeader request) {
-        this.logger.error("Transform Client Response");
+        this.logger.trace("[{}] Transform Client Response", this.serviceName);
         return response;
     }
 }
